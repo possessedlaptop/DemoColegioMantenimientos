@@ -47,8 +47,8 @@
             statusStrip1 = new StatusStrip();
             lblSystem = new ToolStripStatusLabel();
             lblSession = new ToolStripStatusLabel();
-            timer1 = new System.Windows.Forms.Timer(components);
             lblUser = new ToolStripStatusLabel();
+            timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             SuspendLayout();
@@ -73,21 +73,22 @@
             // 
             studentsToolStripMenuItem.Image = Properties.Resources.dude4;
             studentsToolStripMenuItem.Name = "studentsToolStripMenuItem";
-            studentsToolStripMenuItem.Size = new Size(137, 22);
+            studentsToolStripMenuItem.Size = new Size(180, 22);
             studentsToolStripMenuItem.Text = "Students";
+            studentsToolStripMenuItem.Click += studentsToolStripMenuItem_Click;
             // 
             // teachersToolStripMenuItem
             // 
             teachersToolStripMenuItem.Image = Properties.Resources.users4;
             teachersToolStripMenuItem.Name = "teachersToolStripMenuItem";
-            teachersToolStripMenuItem.Size = new Size(137, 22);
+            teachersToolStripMenuItem.Size = new Size(180, 22);
             teachersToolStripMenuItem.Text = "Teachers";
             // 
             // enrollmentsToolStripMenuItem
             // 
             enrollmentsToolStripMenuItem.Image = Properties.Resources.cabinet;
             enrollmentsToolStripMenuItem.Name = "enrollmentsToolStripMenuItem";
-            enrollmentsToolStripMenuItem.Size = new Size(137, 22);
+            enrollmentsToolStripMenuItem.Size = new Size(180, 22);
             enrollmentsToolStripMenuItem.Text = "Enrollments";
             // 
             // searchToolStripMenuItem
@@ -182,17 +183,17 @@
             lblSession.Size = new Size(52, 17);
             lblSession.Text = "Session: ";
             // 
-            // timer1
-            // 
-            timer1.Enabled = true;
-            timer1.Interval = 1000;
-            timer1.Tick += timer1_Tick;
-            // 
             // lblUser
             // 
             lblUser.Name = "lblUser";
             lblUser.Size = new Size(36, 17);
             lblUser.Text = "User: ";
+            // 
+            // timer1
+            // 
+            timer1.Enabled = true;
+            timer1.Interval = 1000;
+            timer1.Tick += timer1_Tick;
             // 
             // MDI_Main
             // 

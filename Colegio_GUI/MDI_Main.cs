@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Colegio_GUI.Forms.Operations.Students;
 
 // To show device in ToolStrip
 using Microsoft.VisualBasic.Devices;
@@ -50,14 +51,14 @@ namespace Colegio_GUI
             this.lblUser.Text = "User: " + clsCredentials.User;
 
             // and this is for authorizated functions
-            if(clsCredentials.Level == 1) // Admin level
+            if (clsCredentials.Level == 1) // Admin level
             {
                 operationsToolStripMenuItem.Visible = true;
                 searchToolStripMenuItem.Visible = true;
                 listsToolStripMenuItem.Visible = true;
                 exitToolStripMenuItem.Visible = true;
             }
-            else if(clsCredentials.Level == 2) // Operator level
+            else if (clsCredentials.Level == 2) // Operator level
             {
                 operationsToolStripMenuItem.Visible = true;
                 searchToolStripMenuItem.Visible = true;
@@ -99,6 +100,13 @@ namespace Colegio_GUI
 
             lblSession.Text = "Session: " + DateTime.Now.TimeOfDay
                 .Subtract(loggedTime).ToString().Substring(0, 8); //hh-mm-ss
+        }
+
+        private void studentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StudentOperations1 objStudentOperations1 = new StudentOperations1();
+            objStudentOperations1.MdiParent = this;
+            objStudentOperations1.Show();
         }
     }
 }
