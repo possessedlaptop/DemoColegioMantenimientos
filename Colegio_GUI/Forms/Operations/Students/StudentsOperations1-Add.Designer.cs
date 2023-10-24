@@ -40,9 +40,9 @@
             label11 = new Label();
             label12 = new Label();
             gboGender = new GroupBox();
-            optMale = new RadioButton();
-            optFemale = new RadioButton();
             optOther = new RadioButton();
+            optFemale = new RadioButton();
+            optMale = new RadioButton();
             label6 = new Label();
             pcbStudentPic = new PictureBox();
             btnAddPhoto = new Button();
@@ -58,6 +58,10 @@
             cboProvince = new ComboBox();
             cboDistrict = new ComboBox();
             lstCurrentState = new ListBox();
+            btnAdd = new Button();
+            btnClose = new Button();
+            label4 = new Label();
+            cboClassroom = new ComboBox();
             gboGender.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pcbStudentPic).BeginInit();
             SuspendLayout();
@@ -169,31 +173,9 @@
             gboGender.Location = new Point(346, 128);
             gboGender.Name = "gboGender";
             gboGender.Size = new Size(200, 100);
-            gboGender.TabIndex = 12;
+            gboGender.TabIndex = 5;
             gboGender.TabStop = false;
             gboGender.Text = "Gender: ";
-            // 
-            // optMale
-            // 
-            optMale.AutoSize = true;
-            optMale.Location = new Point(6, 25);
-            optMale.Name = "optMale";
-            optMale.Size = new Size(51, 19);
-            optMale.TabIndex = 0;
-            optMale.TabStop = true;
-            optMale.Text = "Male";
-            optMale.UseVisualStyleBackColor = true;
-            // 
-            // optFemale
-            // 
-            optFemale.AutoSize = true;
-            optFemale.Location = new Point(6, 50);
-            optFemale.Name = "optFemale";
-            optFemale.Size = new Size(63, 19);
-            optFemale.TabIndex = 1;
-            optFemale.TabStop = true;
-            optFemale.Text = "Female";
-            optFemale.UseVisualStyleBackColor = true;
             // 
             // optOther
             // 
@@ -206,6 +188,28 @@
             optOther.Text = "Other";
             optOther.UseVisualStyleBackColor = true;
             // 
+            // optFemale
+            // 
+            optFemale.AutoSize = true;
+            optFemale.Location = new Point(6, 50);
+            optFemale.Name = "optFemale";
+            optFemale.Size = new Size(63, 19);
+            optFemale.TabIndex = 1;
+            optFemale.TabStop = true;
+            optFemale.Text = "Female";
+            optFemale.UseVisualStyleBackColor = true;
+            // 
+            // optMale
+            // 
+            optMale.AutoSize = true;
+            optMale.Location = new Point(6, 25);
+            optMale.Name = "optMale";
+            optMale.Size = new Size(51, 19);
+            optMale.TabIndex = 0;
+            optMale.TabStop = true;
+            optMale.Text = "Male";
+            optMale.UseVisualStyleBackColor = true;
+            // 
             // label6
             // 
             label6.AutoSize = true;
@@ -217,62 +221,66 @@
             // 
             // pcbStudentPic
             // 
-            pcbStudentPic.Location = new Point(346, 339);
+            pcbStudentPic.BackgroundImageLayout = ImageLayout.Center;
+            pcbStudentPic.BorderStyle = BorderStyle.FixedSingle;
+            pcbStudentPic.Location = new Point(352, 369);
             pcbStudentPic.Name = "pcbStudentPic";
-            pcbStudentPic.Size = new Size(153, 180);
+            pcbStudentPic.Size = new Size(316, 276);
+            pcbStudentPic.SizeMode = PictureBoxSizeMode.Zoom;
             pcbStudentPic.TabIndex = 14;
             pcbStudentPic.TabStop = false;
             // 
             // btnAddPhoto
             // 
-            btnAddPhoto.Location = new Point(523, 339);
+            btnAddPhoto.Location = new Point(464, 340);
             btnAddPhoto.Name = "btnAddPhoto";
             btnAddPhoto.Size = new Size(75, 23);
-            btnAddPhoto.TabIndex = 15;
+            btnAddPhoto.TabIndex = 13;
             btnAddPhoto.Text = "Add Photo";
             btnAddPhoto.UseVisualStyleBackColor = true;
+            btnAddPhoto.Click += btnAddPhoto_Click;
             // 
             // txtFirstLastName
             // 
             txtFirstLastName.Location = new Point(127, 84);
             txtFirstLastName.Name = "txtFirstLastName";
             txtFirstLastName.Size = new Size(204, 23);
-            txtFirstLastName.TabIndex = 16;
+            txtFirstLastName.TabIndex = 2;
             // 
             // txtSecondLastN
             // 
             txtSecondLastN.Location = new Point(464, 84);
             txtSecondLastN.Name = "txtSecondLastN";
             txtSecondLastN.Size = new Size(204, 23);
-            txtSecondLastN.TabIndex = 16;
+            txtSecondLastN.TabIndex = 3;
             // 
             // txtSecondName
             // 
             txtSecondName.Location = new Point(464, 54);
             txtSecondName.Name = "txtSecondName";
             txtSecondName.Size = new Size(204, 23);
-            txtSecondName.TabIndex = 16;
+            txtSecondName.TabIndex = 1;
             // 
             // txtFirstName
             // 
             txtFirstName.Location = new Point(127, 55);
             txtFirstName.Name = "txtFirstName";
             txtFirstName.Size = new Size(204, 23);
-            txtFirstName.TabIndex = 16;
+            txtFirstName.TabIndex = 0;
             // 
             // txtContactMail
             // 
             txtContactMail.Location = new Point(127, 372);
             txtContactMail.Name = "txtContactMail";
             txtContactMail.Size = new Size(204, 23);
-            txtContactMail.TabIndex = 16;
+            txtContactMail.TabIndex = 10;
             // 
             // txtAddress
             // 
             txtAddress.Location = new Point(464, 274);
             txtAddress.Name = "txtAddress";
             txtAddress.Size = new Size(204, 23);
-            txtAddress.TabIndex = 16;
+            txtAddress.TabIndex = 8;
             // 
             // dtpDateOfBirth
             // 
@@ -281,7 +289,7 @@
             dtpDateOfBirth.Location = new Point(127, 122);
             dtpDateOfBirth.Name = "dtpDateOfBirth";
             dtpDateOfBirth.Size = new Size(204, 23);
-            dtpDateOfBirth.TabIndex = 17;
+            dtpDateOfBirth.TabIndex = 4;
             // 
             // mtbDNI
             // 
@@ -289,7 +297,7 @@
             mtbDNI.Mask = "99999999";
             mtbDNI.Name = "mtbDNI";
             mtbDNI.Size = new Size(204, 23);
-            mtbDNI.TabIndex = 18;
+            mtbDNI.TabIndex = 9;
             // 
             // cboDepartment
             // 
@@ -297,7 +305,8 @@
             cboDepartment.Location = new Point(127, 220);
             cboDepartment.Name = "cboDepartment";
             cboDepartment.Size = new Size(204, 23);
-            cboDepartment.TabIndex = 19;
+            cboDepartment.TabIndex = 5;
+            cboDepartment.SelectedIndexChanged += cboDepartment_SelectedIndexChanged;
             // 
             // cboProvince
             // 
@@ -305,7 +314,8 @@
             cboProvince.Location = new Point(127, 247);
             cboProvince.Name = "cboProvince";
             cboProvince.Size = new Size(204, 23);
-            cboProvince.TabIndex = 19;
+            cboProvince.TabIndex = 6;
+            cboProvince.SelectedIndexChanged += cboProvince_SelectedIndexChanged;
             // 
             // cboDistrict
             // 
@@ -313,7 +323,7 @@
             cboDistrict.Location = new Point(127, 274);
             cboDistrict.Name = "cboDistrict";
             cboDistrict.Size = new Size(204, 23);
-            cboDistrict.TabIndex = 19;
+            cboDistrict.TabIndex = 7;
             // 
             // lstCurrentState
             // 
@@ -323,14 +333,57 @@
             lstCurrentState.Location = new Point(127, 425);
             lstCurrentState.Name = "lstCurrentState";
             lstCurrentState.Size = new Size(204, 94);
-            lstCurrentState.TabIndex = 20;
+            lstCurrentState.TabIndex = 11;
+            // 
+            // btnAdd
+            // 
+            btnAdd.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAdd.Location = new Point(127, 660);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(187, 38);
+            btnAdd.TabIndex = 14;
+            btnAdd.Text = "Add Register";
+            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
+            // 
+            // btnClose
+            // 
+            btnClose.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            btnClose.Location = new Point(386, 660);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(187, 38);
+            btnClose.TabIndex = 16;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(12, 569);
+            label4.Name = "label4";
+            label4.Size = new Size(112, 15);
+            label4.TabIndex = 22;
+            label4.Text = "Current Classroom: ";
+            // 
+            // cboClassroom
+            // 
+            cboClassroom.FormattingEnabled = true;
+            cboClassroom.Location = new Point(127, 566);
+            cboClassroom.Name = "cboClassroom";
+            cboClassroom.Size = new Size(204, 23);
+            cboClassroom.TabIndex = 12;
             // 
             // StudentsOperations1_Add
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(704, 541);
+            ClientSize = new Size(697, 728);
+            Controls.Add(label4);
+            Controls.Add(btnClose);
+            Controls.Add(btnAdd);
             Controls.Add(lstCurrentState);
+            Controls.Add(cboClassroom);
             Controls.Add(cboDistrict);
             Controls.Add(cboProvince);
             Controls.Add(cboDepartment);
@@ -359,6 +412,7 @@
             Controls.Add(label1);
             Name = "StudentsOperations1_Add";
             Text = "StudentsOperations1_Add";
+            Load += StudentsOperations1_Add_Load;
             gboGender.ResumeLayout(false);
             gboGender.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pcbStudentPic).EndInit();
@@ -398,5 +452,9 @@
         private ComboBox cboProvince;
         private ComboBox cboDistrict;
         private ListBox lstCurrentState;
+        private Button btnAdd;
+        private Button btnClose;
+        private Label label4;
+        private ComboBox cboClassroom;
     }
 }

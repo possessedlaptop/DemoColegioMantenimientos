@@ -11,26 +11,31 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Colegio_GUI.Forms.Operations.Students
+namespace Colegio_GUI.Forms.Operations.Teachers
 {
-    public partial class StudentsOperations1_Add : Form
+    public partial class TeacherOperations_Update : Form
     {
 
-        StudentBL objStudentBL = new StudentBL();
-        StudentBE objStudentBE = new StudentBE();
+        StaffBL objStaffBL = new StaffBL();
+        StaffBE objStaffBE = new StaffBE();
+
+        TeacherBL objTeacherBL = new TeacherBL();
+        TeacherBE objTeacherBE = new TeacherBE();
+
         // To fill combo boxes
         UbigeoBL objUbigeoBL = new UbigeoBL();
+        SubjectBL objSubjectBL = new SubjectBL();
         // To allow uploading pictures
         OpenFileDialog dlg = new OpenFileDialog();
-        ClassroomBL objClassroomBL = new ClassroomBL();
 
+        public Int16 TeacherID { get; set; }
 
-        public StudentsOperations1_Add()
+        public TeacherOperations_Update()
         {
             InitializeComponent();
         }
 
-        private void StudentsOperations1_Add_Load(object sender, EventArgs e)
+        private void TeacherOperations_Update_Load(object sender, EventArgs e)
         {
             try
             {
@@ -74,16 +79,50 @@ namespace Colegio_GUI.Forms.Operations.Students
                 cboDistrict.ValueMember = "IdDist";
                 cboDistrict.DisplayMember = "Distrito";
 
-                // Fill Classrooms
-                dt = objClassroomBL.ListClassrooms();
+                // Fill Subjects
+                dt = objSubjectBL.ListSubjects();
                 dr = dt.NewRow();
-                dr["ClassroomID"] = 0;
-                dr["ClassroomNumber"] = "--Select--";
+                dr["SubjectID"] = 0;
+                dr["SubjectName"] = "--Select--";
                 dt.Rows.InsertAt(dr, 0);
 
-                cboClassroom.DataSource = dt;
-                cboClassroom.ValueMember = "ClassroomID";
-                cboClassroom.DisplayMember = "ClassroomNumber";
+                cboSubject.DataSource = dt;
+                cboSubject.ValueMember = "SubjectID";
+                cboSubject.DisplayMember = "SubjectName";
+
+                // -- Here we populate the fields with the selected student from the code --
+                objTeacherBE = objTeacherBL.GetTeacherByID(TeacherID);
+                lblTeacherID.Text = this.TeacherID.ToString();
+                Int16 StaffID = objTeacherBE.StaffID;
+                objStaffBE = objStaffBL.GetStaffByID(StaffID);
+                // text fields
+                txtFirstName.Text = objStaffBE.FirstName;
+                txtSecondName.Text = objStaffBE.SecondName;
+                txtFirstLastName.Text = objStaffBE.FirstLastName;
+                txtSecondLastN.Text = objStaffBE.SecondLastName;
+                txtContactMail.Text = objStaffBE.ContactMail;
+                txtAddress.Text = objStaffBE.Address;
+                txtContactNumber.Text = objStaffBE.ContactNumber;
+                dtpDateOfBirth.Value = objStaffBE.DateOfBirth;
+                txtQualifications.Text = objTeacherBE.Qualifications;
+
+                // listbox
+                lstCurrentState.SelectedIndex = objStaffBE.CurrentState;
+                // combo boxes
+                cboDepartment.SelectedValue = objStaffBE.ID_Ubigeo.Substring(0, 2);
+                cboProvince.SelectedValue = objStaffBE.ID_Ubigeo.Substring(2, 2);
+                cboDistrict.SelectedValue = objStaffBE.ID_Ubigeo.Substring(4, 2);
+                cboSubject.SelectedValue = objTeacherBE.SubjectTaught;
+                // picture box
+                if (objStaffBE.StaffPhoto == null)
+                {
+                    pcbStudentPic.Image = null;
+                }
+                else
+                {
+                    MemoryStream ms = new MemoryStream(objStaffBE.StaffPhoto);
+                    pcbStudentPic.Image = Image.FromStream(ms);
+                }
 
             }
             catch (Exception ex)
@@ -120,7 +159,6 @@ namespace Colegio_GUI.Forms.Operations.Students
                 cboProvince.DisplayMember = "Provincia";
 
             }
-
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -184,7 +222,7 @@ namespace Colegio_GUI.Forms.Operations.Students
                 txtSecondLastN.Text.Trim() == "" ||
                 txtContactMail.Text.Trim() == "" ||
                 txtAddress.Text.Trim() == "" ||
-                mtbDNI.Text.Trim() == ""
+                txtQualifications.Text.Trim() == ""
                 )
             {
                 MessageBox.Show("All text fields must be filled");
@@ -193,11 +231,6 @@ namespace Colegio_GUI.Forms.Operations.Students
             if (cboDepartment.SelectedIndex == 0 || cboProvince.SelectedIndex == 0 || cboDistrict.SelectedIndex == 0)
             {
                 MessageBox.Show("All locations fields must be selected");
-            }
-            // Then we check a gender button has been selected
-            if (optFemale.Checked == false && optMale.Checked == false && optOther.Checked == false)
-            {
-                MessageBox.Show("Gender must be selected");
             }
             // Same for the listbox
             if (lstCurrentState.SelectedItem == null)
@@ -211,48 +244,63 @@ namespace Colegio_GUI.Forms.Operations.Students
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
             validateFieldsComplete();
 
-            // Now we add the student, hopefully
-            objStudentBE.FirstName = txtFirstName.Text.Trim();
-            objStudentBE.SecondName = txtSecondName.Text.Trim();
-            objStudentBE.FirstLastName = txtFirstLastName.Text.Trim();
-            objStudentBE.SecondLastName = txtSecondLastN.Text.Trim();
-            objStudentBE.ContactMail = txtContactMail.Text.Trim();
-            objStudentBE.Address = txtAddress.Text.Trim();
-            objStudentBE.DNI_Number = mtbDNI.Text.Trim();
-            objStudentBE.DateOfBirth = dtpDateOfBirth.Value;
-            objStudentBE.ClassroomId = Convert.ToInt16(cboClassroom.SelectedValue.ToString());
-            //Gender
-            if (optMale.Checked)
+            objTeacherBE.TeacherID = this.TeacherID;
+            // Now we get the StaffID from the element with this teacher ID
+            TeacherBE staffIDfromTeach = objTeacherBL.GetTeacherByID(this.TeacherID);
+            Int16 StaffID = Convert.ToInt16(staffIDfromTeach.StaffID);
+
+            objStaffBE.StaffID = StaffID;
+            objStaffBE.FirstName = txtFirstName.Text.Trim();
+            objStaffBE.SecondName = txtSecondName.Text.Trim();
+            objStaffBE.FirstLastName = txtFirstLastName.Text.Trim();
+            objStaffBE.SecondLastName = txtSecondLastN.Text.Trim();
+            objStaffBE.ContactMail = txtContactMail.Text.Trim();
+            objStaffBE.Address = txtAddress.Text.Trim();
+            objStaffBE.ContactNumber = txtContactNumber.Text.Trim();
+            objStaffBE.DateOfBirth = dtpDateOfBirth.Value;
+            objStaffBE.OnBoardingStart = dtpOnBoard.Value;
+            objTeacherBE.Qualifications = txtQualifications.Text.Trim();
+            objTeacherBE.SubjectTaught = Convert.ToInt16(cboSubject.SelectedValue.ToString());
+
+            objStaffBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
+            objStaffBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
+
+            if (!string.IsNullOrEmpty(dlg.FileName))
             {
-                objStudentBE.Gender = 0;
-            }
-            else if (optFemale.Checked)
-            {
-                objStudentBE.Gender = 1;
+                objStaffBE.StaffPhoto = File.ReadAllBytes(dlg.FileName);
             }
             else
             {
-                objStudentBE.Gender = 2;
+                objStaffBE.StaffPhoto = null;
             }
-            objStudentBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
-            objStudentBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
-            objStudentBE.StudentPhoto = File.ReadAllBytes(dlg.FileName);
 
-            objStudentBE.RegisteringUser = clsCredentials.User;
+            objStaffBE.LastModifiedUser = clsCredentials.User;
+            objTeacherBE.LastModifiedUser = clsCredentials.User;
 
-            // Insert, pls insert
-            if (objStudentBL.InsertStudent(objStudentBE) == true)
+            if (objStaffBL.UpdateStaff(objStaffBE) == true)
             {
-                MessageBox.Show("Student added");
-                this.Close();
+                //MessageBox.Show("Staff updated");
+
+                if (objTeacherBL.UpdateTeacher(objTeacherBE) == true)
+                {
+                    MessageBox.Show("Teacher updated");
+                    this.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error updating Teacher");
+                }
+
+
+                // this.Close();
             }
             else
             {
-                MessageBox.Show("Error adding student");
+                MessageBox.Show("Error updating Staff");
             }
         }
 

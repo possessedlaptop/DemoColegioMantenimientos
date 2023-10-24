@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Colegio_GUI.Forms.Operations.Students;
+using Colegio_GUI.Forms.Operations.Teachers;
 
 // To show device in ToolStrip
 using Microsoft.VisualBasic.Devices;
@@ -107,6 +108,13 @@ namespace Colegio_GUI
             StudentOperations1 objStudentOperations1 = new StudentOperations1();
             objStudentOperations1.MdiParent = this;
             objStudentOperations1.Show();
+        }
+
+        private void teachersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TeacherOperations teacherOperations = new TeacherOperations();
+            teacherOperations.MdiParent = this;
+            teacherOperations.Show();
         }
     }
 }

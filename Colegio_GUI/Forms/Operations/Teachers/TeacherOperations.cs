@@ -1,4 +1,5 @@
 ﻿using Colegio_BL;
+using Colegio_GUI.Forms.Operations.Students;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,36 +10,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Colegio_GUI.Forms.Operations.Students
+namespace Colegio_GUI.Forms.Operations.Teachers
 {
-    public partial class StudentOperations1 : Form
+    public partial class TeacherOperations : Form
     {
 
-        StudentBL objStudentBL = new StudentBL();
+        TeacherBL objTeacherBL = new TeacherBL();
         DataView dtv;
 
-        public StudentOperations1()
+        public TeacherOperations()
         {
             InitializeComponent();
         }
 
         private void FillDataGridView(String strFilter)
         {
-            dtv = new DataView(objStudentBL.ListStudents());
+            dtv = new DataView(objTeacherBL.ListTeachers());
             // this is the query to find all names that contain what's on the search bar, not sure if we should start by name or last name yet
-            dtv.RowFilter = "FirstName like '%" + strFilter + "%'";
+            dtv.RowFilter = "NombreCompleto like '%" + strFilter + "%'";
             // we pass on the result view to our datagridview
             dtgData.DataSource = dtv;
             // and for the entries
             lblEntries.Text = dtv.Count.ToString();
 
-            DataGridViewImageColumn imgCol = (DataGridViewImageColumn)dtgData.Columns["StudentPhoto"];
+            DataGridViewImageColumn imgCol = (DataGridViewImageColumn)dtgData.Columns["StaffPhoto"];
             imgCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+
+            // We want this column to be set to autosize horizontally
+            dtgData.Columns["NombreCompleto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
-        private void StudentOperations1_Load(object sender, EventArgs e)
+        private void TeacherOperations_Load(object sender, EventArgs e)
         {
-            // We initialize at as empty String
             FillDataGridView("");
         }
 
@@ -56,18 +59,18 @@ namespace Colegio_GUI.Forms.Operations.Students
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            StudentsOperations1_Add objStudentAdd = new StudentsOperations1_Add();
-            objStudentAdd.ShowDialog();
+            TeacherOperations_Add objTeacherAdd = new TeacherOperations_Add();
+            objTeacherAdd.ShowDialog();
             FillDataGridView("");
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            StudentOperations1_Update objStudentUpdate = new StudentOperations1_Update();
-            Int16 studentID = Convert.ToInt16(dtgData.CurrentRow.Cells[0].Value.ToString());
+            TeacherOperations_Update objTeacherUpdate = new TeacherOperations_Update();
+            Int16 teacherID = Convert.ToInt16(dtgData.CurrentRow.Cells[0].Value.ToString());
 
-            objStudentUpdate.StudentID = studentID;
-            objStudentUpdate.ShowDialog();
+            objTeacherUpdate.TeacherID = teacherID;
+            objTeacherUpdate.ShowDialog();
             FillDataGridView("");
         }
 
@@ -80,7 +83,7 @@ namespace Colegio_GUI.Forms.Operations.Students
                 if (vrpta == DialogResult.OK)
                 {
                     Int16 studentID = Convert.ToInt16(dtgData.CurrentRow.Cells[0].Value.ToString());
-                    if (objStudentBL.DeleteStudent(studentID) == true)
+                    if (objTeacherBL.DeleteTeacher(studentID) == true)
                     {
                         // MessageBox.Show("Eliminado Correctamente");
                         FillDataGridView("");
@@ -104,7 +107,7 @@ namespace Colegio_GUI.Forms.Operations.Students
 
         private void dtgData_DoubleClick(object sender, EventArgs e)
         {
-            if(dtgData.SelectedRows.Count > 0)
+            if (dtgData.SelectedRows.Count > 0)
             {
                 btnUpdate.PerformClick();
             }

@@ -1,5 +1,4 @@
-﻿using Colegio_ADO;
-using Colegio_BE;
+﻿using Colegio_BE;
 using Colegio_BL;
 using System;
 using System.Collections.Generic;
@@ -13,24 +12,25 @@ using System.Windows.Forms;
 
 namespace Colegio_GUI.Forms.Operations.Students
 {
-    public partial class StudentsOperations1_Add : Form
+    public partial class StudentOperations1_Update : Form
     {
+
 
         StudentBL objStudentBL = new StudentBL();
         StudentBE objStudentBE = new StudentBE();
         // To fill combo boxes
         UbigeoBL objUbigeoBL = new UbigeoBL();
-        // To allow uploading pictures
         OpenFileDialog dlg = new OpenFileDialog();
         ClassroomBL objClassroomBL = new ClassroomBL();
 
-
-        public StudentsOperations1_Add()
+        public StudentOperations1_Update()
         {
             InitializeComponent();
         }
 
-        private void StudentsOperations1_Add_Load(object sender, EventArgs e)
+        public Int16 StudentID { get; set; }
+
+        private void StudentOperations1_Update_Load(object sender, EventArgs e)
         {
             try
             {
@@ -85,6 +85,50 @@ namespace Colegio_GUI.Forms.Operations.Students
                 cboClassroom.ValueMember = "ClassroomID";
                 cboClassroom.DisplayMember = "ClassroomNumber";
 
+
+                // -- Here we populate the fields with the selected student from the code --
+                objStudentBE = objStudentBL.GetStudentByID(StudentID);
+                txtStudentID.Text = this.StudentID.ToString();
+                // text fields
+                txtFirstName.Text = objStudentBE.FirstName;
+                txtSecondName.Text = objStudentBE.SecondName;
+                txtFirstLastName.Text = objStudentBE.FirstLastName;
+                txtSecondLastN.Text = objStudentBE.SecondLastName;
+                txtContactMail.Text = objStudentBE.ContactMail;
+                txtAddress.Text = objStudentBE.Address;
+                mtbDNI.Text = objStudentBE.DNI_Number;
+                dtpDateOfBirth.Value = objStudentBE.DateOfBirth;
+                // Gender
+                if (objStudentBE.Gender == 0)
+                {
+                    optMale.Checked = true;
+                }
+                else if (objStudentBE.Gender == 1)
+                {
+                    optFemale.Checked = true;
+                }
+                else
+                {
+                    optOther.Checked = true;
+                }
+                // listbox
+                lstCurrentState.SelectedIndex = objStudentBE.CurrentState;
+                // combo boxes
+                cboDepartment.SelectedValue = objStudentBE.ID_Ubigeo.Substring(0, 2);
+                cboProvince.SelectedValue = objStudentBE.ID_Ubigeo.Substring(2, 2);
+                cboDistrict.SelectedValue = objStudentBE.ID_Ubigeo.Substring(4, 2);
+                cboClassroom.SelectedValue = objStudentBE.ClassroomId;
+                // picture box
+                if (objStudentBE.StudentPhoto == null)
+                {
+                    pcbStudentPic.Image = null;
+                }
+                else
+                {
+                    MemoryStream ms = new MemoryStream(objStudentBE.StudentPhoto);
+                    pcbStudentPic.Image = Image.FromStream(ms);
+                }
+
             }
             catch (Exception ex)
             {
@@ -120,7 +164,6 @@ namespace Colegio_GUI.Forms.Operations.Students
                 cboProvince.DisplayMember = "Provincia";
 
             }
-
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -211,11 +254,12 @@ namespace Colegio_GUI.Forms.Operations.Students
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnUpdate_Click(object sender, EventArgs e)
         {
             validateFieldsComplete();
 
             // Now we add the student, hopefully
+            objStudentBE.StudentID = this.StudentID;
             objStudentBE.FirstName = txtFirstName.Text.Trim();
             objStudentBE.SecondName = txtSecondName.Text.Trim();
             objStudentBE.FirstLastName = txtFirstLastName.Text.Trim();
@@ -240,19 +284,26 @@ namespace Colegio_GUI.Forms.Operations.Students
             }
             objStudentBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
             objStudentBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
-            objStudentBE.StudentPhoto = File.ReadAllBytes(dlg.FileName);
 
-            objStudentBE.RegisteringUser = clsCredentials.User;
-
-            // Insert, pls insert
-            if (objStudentBL.InsertStudent(objStudentBE) == true)
+            if (!string.IsNullOrEmpty(dlg.FileName))
             {
-                MessageBox.Show("Student added");
+                objStudentBE.StudentPhoto = File.ReadAllBytes(dlg.FileName);
+            }
+            else
+            {
+                objStudentBE.StudentPhoto = null;
+            }
+
+            objStudentBE.LastModifiedUser = clsCredentials.User;
+
+            if (objStudentBL.UpdateStudent(objStudentBE) == true)
+            {
+                MessageBox.Show("Student updated");
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Error adding student");
+                MessageBox.Show("Error updating student");
             }
         }
 

@@ -1,36 +1,40 @@
-﻿using Colegio_ADO;
-using Colegio_BE;
+﻿using Colegio_BE;
 using Colegio_BL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.ComponentModel.Design.ObjectSelectorEditor;
 
-namespace Colegio_GUI.Forms.Operations.Students
+namespace Colegio_GUI.Forms.Operations.Teachers
 {
-    public partial class StudentsOperations1_Add : Form
+    public partial class TeacherOperations_Add : Form
     {
 
-        StudentBL objStudentBL = new StudentBL();
-        StudentBE objStudentBE = new StudentBE();
+        StaffBL objStaffBL = new StaffBL();
+        StaffBE objStaffBE = new StaffBE();
+
+        TeacherBL objTeacherBL = new TeacherBL();
+        TeacherBE objTeacherBE = new TeacherBE();
+
         // To fill combo boxes
         UbigeoBL objUbigeoBL = new UbigeoBL();
+        SubjectBL objSubjectBL = new SubjectBL();
         // To allow uploading pictures
         OpenFileDialog dlg = new OpenFileDialog();
-        ClassroomBL objClassroomBL = new ClassroomBL();
 
-
-        public StudentsOperations1_Add()
+        public TeacherOperations_Add()
         {
             InitializeComponent();
         }
 
-        private void StudentsOperations1_Add_Load(object sender, EventArgs e)
+        private void TeacherOperations_Add_Load(object sender, EventArgs e)
         {
             try
             {
@@ -74,16 +78,17 @@ namespace Colegio_GUI.Forms.Operations.Students
                 cboDistrict.ValueMember = "IdDist";
                 cboDistrict.DisplayMember = "Distrito";
 
-                // Fill Classrooms
-                dt = objClassroomBL.ListClassrooms();
+                // Fill Subjects
+                dt = objSubjectBL.ListSubjects();
                 dr = dt.NewRow();
-                dr["ClassroomID"] = 0;
-                dr["ClassroomNumber"] = "--Select--";
+                dr["SubjectID"] = 0;
+                dr["SubjectName"] = "--Select--";
                 dt.Rows.InsertAt(dr, 0);
 
-                cboClassroom.DataSource = dt;
-                cboClassroom.ValueMember = "ClassroomID";
-                cboClassroom.DisplayMember = "ClassroomNumber";
+                cboSubject.DataSource = dt;
+                cboSubject.ValueMember = "SubjectID";
+                cboSubject.DisplayMember = "SubjectName";
+
 
             }
             catch (Exception ex)
@@ -120,7 +125,6 @@ namespace Colegio_GUI.Forms.Operations.Students
                 cboProvince.DisplayMember = "Provincia";
 
             }
-
         }
 
         private void cboProvince_SelectedIndexChanged(object sender, EventArgs e)
@@ -184,7 +188,8 @@ namespace Colegio_GUI.Forms.Operations.Students
                 txtSecondLastN.Text.Trim() == "" ||
                 txtContactMail.Text.Trim() == "" ||
                 txtAddress.Text.Trim() == "" ||
-                mtbDNI.Text.Trim() == ""
+                txtContactNumber.Text.Trim() == "" ||
+                txtQualifications.Text.Trim() == ""
                 )
             {
                 MessageBox.Show("All text fields must be filled");
@@ -193,11 +198,6 @@ namespace Colegio_GUI.Forms.Operations.Students
             if (cboDepartment.SelectedIndex == 0 || cboProvince.SelectedIndex == 0 || cboDistrict.SelectedIndex == 0)
             {
                 MessageBox.Show("All locations fields must be selected");
-            }
-            // Then we check a gender button has been selected
-            if (optFemale.Checked == false && optMale.Checked == false && optOther.Checked == false)
-            {
-                MessageBox.Show("Gender must be selected");
             }
             // Same for the listbox
             if (lstCurrentState.SelectedItem == null)
@@ -216,44 +216,51 @@ namespace Colegio_GUI.Forms.Operations.Students
             validateFieldsComplete();
 
             // Now we add the student, hopefully
-            objStudentBE.FirstName = txtFirstName.Text.Trim();
-            objStudentBE.SecondName = txtSecondName.Text.Trim();
-            objStudentBE.FirstLastName = txtFirstLastName.Text.Trim();
-            objStudentBE.SecondLastName = txtSecondLastN.Text.Trim();
-            objStudentBE.ContactMail = txtContactMail.Text.Trim();
-            objStudentBE.Address = txtAddress.Text.Trim();
-            objStudentBE.DNI_Number = mtbDNI.Text.Trim();
-            objStudentBE.DateOfBirth = dtpDateOfBirth.Value;
-            objStudentBE.ClassroomId = Convert.ToInt16(cboClassroom.SelectedValue.ToString());
-            //Gender
-            if (optMale.Checked)
-            {
-                objStudentBE.Gender = 0;
-            }
-            else if (optFemale.Checked)
-            {
-                objStudentBE.Gender = 1;
-            }
-            else
-            {
-                objStudentBE.Gender = 2;
-            }
-            objStudentBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
-            objStudentBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
-            objStudentBE.StudentPhoto = File.ReadAllBytes(dlg.FileName);
+            objStaffBE.FirstName = txtFirstName.Text.Trim();
+            objStaffBE.SecondName = txtSecondName.Text.Trim();
+            objStaffBE.FirstLastName = txtFirstLastName.Text.Trim();
+            objStaffBE.SecondLastName = txtSecondLastN.Text.Trim();
+            objStaffBE.Address = txtAddress.Text.Trim();
+            objStaffBE.ContactMail = txtContactMail.Text.Trim();
+            objStaffBE.ContactNumber = txtContactNumber.Text.Trim();
+            objStaffBE.DateOfBirth = dtpDateOfBirth.Value;
+            objStaffBE.OnBoardingStart = dtpOnBoard.Value;
+            objStaffBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
+            objStaffBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
+            objStaffBE.RegisteringUser = clsCredentials.User;
+            objStaffBE.StaffPhoto = File.ReadAllBytes(dlg.FileName);
+            objStaffBE.IntRole = 0; // Since this is only to add teachers we'll set it here
 
-            objStudentBE.RegisteringUser = clsCredentials.User;
-
-            // Insert, pls insert
-            if (objStudentBL.InsertStudent(objStudentBE) == true)
+            if (objStaffBL.InsertStaff(objStaffBE) == true)
             {
-                MessageBox.Show("Student added");
+
+                // MessageBox.Show("Student added");
+
+                StaffBE lastStaffID = objStaffBL.GetLastStaffIDFromTeacher();
+                // We need to get the value from the column StaffID from the returned table
+                Int16 staffID = Convert.ToInt16(lastStaffID.StaffID);
+                objTeacherBE.StaffID = staffID;
+                objTeacherBE.Qualifications = txtQualifications.Text.Trim();
+                objTeacherBE.SubjectTaught = Convert.ToInt16(cboSubject.SelectedValue.ToString());
+                objTeacherBE.RegisteringUser = clsCredentials.User;
+
+                if (objTeacherBL.InsertTeacher(objTeacherBE) == true)
+                {
+                    MessageBox.Show("Teacher added");
+                }
+                else
+                {
+                    MessageBox.Show("Error adding teacher");
+                }
+
                 this.Close();
             }
             else
             {
-                MessageBox.Show("Error adding student");
+                MessageBox.Show("Error adding Staff");
             }
+
+
         }
 
         private void btnClose_Click(object sender, EventArgs e)

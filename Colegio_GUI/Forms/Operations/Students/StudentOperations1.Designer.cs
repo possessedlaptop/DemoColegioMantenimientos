@@ -59,12 +59,15 @@
             // 
             // dtgData
             // 
+            dtgData.AllowUserToOrderColumns = true;
             dtgData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgData.Location = new Point(12, 51);
             dtgData.Name = "dtgData";
             dtgData.RowTemplate.Height = 25;
+            dtgData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgData.Size = new Size(1188, 331);
             dtgData.TabIndex = 2;
+            dtgData.DoubleClick += dtgData_DoubleClick;
             // 
             // label2
             // 
@@ -93,6 +96,7 @@
             btnAdd.TabIndex = 5;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnUpdate
             // 
@@ -103,6 +107,7 @@
             btnUpdate.TabIndex = 5;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -113,6 +118,7 @@
             btnDelete.TabIndex = 5;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClose
             // 
@@ -123,6 +129,7 @@
             btnClose.TabIndex = 5;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // StudentOperations1
             // 

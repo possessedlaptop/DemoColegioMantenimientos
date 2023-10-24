@@ -69,7 +69,14 @@ namespace Colegio_ADO
                     objStudentBE.ContactMail = dataReader["ContactMail"].ToString();
                     objStudentBE.DNI_Number = dataReader["DNI_Number"].ToString();
                     // Veamos si la foto funciona, si no, lo haremos por url a una ubicacion en disco
+                    if (!dataReader.IsDBNull(dataReader.GetOrdinal("StudentPhoto")))
+                    {
                     objStudentBE.StudentPhoto = (Byte[])(dataReader["StudentPhoto"]);
+                    }
+                    else
+                    {
+                        objStudentBE.StudentPhoto = null;
+                    }
                     objStudentBE.CurrentState = Convert.ToInt16(dataReader["CurrentState"]);
                     objStudentBE.ClassroomId = Convert.ToInt16(dataReader["ClassroomId"]);
               

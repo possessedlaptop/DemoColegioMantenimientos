@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Colegio_ADO
 {
-    internal class ConnectionADO
+    public class ConnectionADO
     {
         public string GetConnection()
         {

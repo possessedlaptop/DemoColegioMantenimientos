@@ -83,6 +83,7 @@
             teachersToolStripMenuItem.Name = "teachersToolStripMenuItem";
             teachersToolStripMenuItem.Size = new Size(180, 22);
             teachersToolStripMenuItem.Text = "Teachers";
+            teachersToolStripMenuItem.Click += teachersToolStripMenuItem_Click;
             // 
             // enrollmentsToolStripMenuItem
             // 
