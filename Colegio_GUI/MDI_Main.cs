@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Colegio_GUI.Forms.Operations.Enrollments;
 using Colegio_GUI.Forms.Operations.Students;
 using Colegio_GUI.Forms.Operations.Teachers;
 
@@ -115,6 +116,13 @@ namespace Colegio_GUI
             TeacherOperations teacherOperations = new TeacherOperations();
             teacherOperations.MdiParent = this;
             teacherOperations.Show();
+        }
+
+        private void enrollmentsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EnrollmentOperations enrollmentOperations = new EnrollmentOperations();
+            enrollmentOperations.MdiParent = this;
+            enrollmentOperations.Show();
         }
     }
 }

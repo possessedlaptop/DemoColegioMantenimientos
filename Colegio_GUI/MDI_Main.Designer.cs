@@ -73,7 +73,7 @@
             // 
             studentsToolStripMenuItem.Image = Properties.Resources.dude4;
             studentsToolStripMenuItem.Name = "studentsToolStripMenuItem";
-            studentsToolStripMenuItem.Size = new Size(180, 22);
+            studentsToolStripMenuItem.Size = new Size(137, 22);
             studentsToolStripMenuItem.Text = "Students";
             studentsToolStripMenuItem.Click += studentsToolStripMenuItem_Click;
             // 
@@ -81,7 +81,7 @@
             // 
             teachersToolStripMenuItem.Image = Properties.Resources.users4;
             teachersToolStripMenuItem.Name = "teachersToolStripMenuItem";
-            teachersToolStripMenuItem.Size = new Size(180, 22);
+            teachersToolStripMenuItem.Size = new Size(137, 22);
             teachersToolStripMenuItem.Text = "Teachers";
             teachersToolStripMenuItem.Click += teachersToolStripMenuItem_Click;
             // 
@@ -89,12 +89,14 @@
             // 
             enrollmentsToolStripMenuItem.Image = Properties.Resources.cabinet;
             enrollmentsToolStripMenuItem.Name = "enrollmentsToolStripMenuItem";
-            enrollmentsToolStripMenuItem.Size = new Size(180, 22);
+            enrollmentsToolStripMenuItem.Size = new Size(137, 22);
             enrollmentsToolStripMenuItem.Text = "Enrollments";
+            enrollmentsToolStripMenuItem.Click += enrollmentsToolStripMenuItem_Click;
             // 
             // searchToolStripMenuItem
             // 
             searchToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { studentToolStripMenuItem, teacherToolStripMenuItem, enrollmentToolStripMenuItem });
+            searchToolStripMenuItem.Enabled = false;
             searchToolStripMenuItem.Name = "searchToolStripMenuItem";
             searchToolStripMenuItem.Size = new Size(54, 20);
             searchToolStripMenuItem.Text = "Search";
@@ -103,26 +105,27 @@
             // 
             studentToolStripMenuItem.Image = Properties.Resources.dude4;
             studentToolStripMenuItem.Name = "studentToolStripMenuItem";
-            studentToolStripMenuItem.Size = new Size(132, 22);
+            studentToolStripMenuItem.Size = new Size(180, 22);
             studentToolStripMenuItem.Text = "Student";
             // 
             // teacherToolStripMenuItem
             // 
             teacherToolStripMenuItem.Image = Properties.Resources.users4;
             teacherToolStripMenuItem.Name = "teacherToolStripMenuItem";
-            teacherToolStripMenuItem.Size = new Size(132, 22);
+            teacherToolStripMenuItem.Size = new Size(180, 22);
             teacherToolStripMenuItem.Text = "Teacher";
             // 
             // enrollmentToolStripMenuItem
             // 
             enrollmentToolStripMenuItem.Image = Properties.Resources.cabinet;
             enrollmentToolStripMenuItem.Name = "enrollmentToolStripMenuItem";
-            enrollmentToolStripMenuItem.Size = new Size(132, 22);
+            enrollmentToolStripMenuItem.Size = new Size(180, 22);
             enrollmentToolStripMenuItem.Text = "Enrollment";
             // 
             // listsToolStripMenuItem
             // 
             listsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { listAllStudentsToolStripMenuItem, listAllTeachersToolStripMenuItem, listAllEnrollmentsToolStripMenuItem });
+            listsToolStripMenuItem.Enabled = false;
             listsToolStripMenuItem.Name = "listsToolStripMenuItem";
             listsToolStripMenuItem.Size = new Size(42, 20);
             listsToolStripMenuItem.Text = "Lists";
@@ -131,21 +134,21 @@
             // 
             listAllStudentsToolStripMenuItem.Image = Properties.Resources.dude4;
             listAllStudentsToolStripMenuItem.Name = "listAllStudentsToolStripMenuItem";
-            listAllStudentsToolStripMenuItem.Size = new Size(173, 22);
+            listAllStudentsToolStripMenuItem.Size = new Size(180, 22);
             listAllStudentsToolStripMenuItem.Text = "List all Students";
             // 
             // listAllTeachersToolStripMenuItem
             // 
             listAllTeachersToolStripMenuItem.Image = Properties.Resources.users4;
             listAllTeachersToolStripMenuItem.Name = "listAllTeachersToolStripMenuItem";
-            listAllTeachersToolStripMenuItem.Size = new Size(173, 22);
+            listAllTeachersToolStripMenuItem.Size = new Size(180, 22);
             listAllTeachersToolStripMenuItem.Text = "List all Teachers";
             // 
             // listAllEnrollmentsToolStripMenuItem
             // 
             listAllEnrollmentsToolStripMenuItem.Image = Properties.Resources.cabinet;
             listAllEnrollmentsToolStripMenuItem.Name = "listAllEnrollmentsToolStripMenuItem";
-            listAllEnrollmentsToolStripMenuItem.Size = new Size(173, 22);
+            listAllEnrollmentsToolStripMenuItem.Size = new Size(180, 22);
             listAllEnrollmentsToolStripMenuItem.Text = "List all Enrollments";
             // 
             // exitToolStripMenuItem
