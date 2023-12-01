@@ -31,6 +31,9 @@ namespace Colegio_GUI
 
         private void ValidateUser()
         {
+            txtUser.Text = string.Empty;
+            txtPassword.Text = string.Empty;
+
             if (loginTries == maxTries)
             {
                 MessageBox.Show("Maximum number of tries reached, the program will close now",

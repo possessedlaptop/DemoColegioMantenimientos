@@ -23,6 +23,7 @@ namespace Colegio_ADO
             sqlCommand.Connection = sqlConnection;
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.CommandText = "usp_GetUserByID";
+            sqlCommand.Parameters.Clear();
             sqlCommand.Parameters.AddWithValue("@Login_User", strLogin);
             try
             {
