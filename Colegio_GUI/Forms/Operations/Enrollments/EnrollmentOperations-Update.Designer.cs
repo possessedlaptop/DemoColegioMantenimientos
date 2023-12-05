@@ -33,7 +33,6 @@
             btnUpdate = new Button();
             lstPayment = new ListBox();
             label5 = new Label();
-            cboRecepcionist = new ComboBox();
             dateTimePicker1 = new DateTimePicker();
             cboGrade = new ComboBox();
             txtStudentID = new TextBox();
@@ -43,6 +42,7 @@
             label1 = new Label();
             label6 = new Label();
             lblEnrollmentID = new Label();
+            txtRecepcionist = new TextBox();
             SuspendLayout();
             // 
             // lblStudentName
@@ -91,14 +91,6 @@
             label5.Size = new Size(95, 15);
             label5.TabIndex = 21;
             label5.Text = "Payment Status: ";
-            // 
-            // cboRecepcionist
-            // 
-            cboRecepcionist.FormattingEnabled = true;
-            cboRecepcionist.Location = new Point(117, 149);
-            cboRecepcionist.Name = "cboRecepcionist";
-            cboRecepcionist.Size = new Size(181, 23);
-            cboRecepcionist.TabIndex = 3;
             // 
             // dateTimePicker1
             // 
@@ -177,11 +169,20 @@
             lblEnrollmentID.Size = new Size(168, 23);
             lblEnrollmentID.TabIndex = 27;
             // 
+            // txtRecepcionist
+            // 
+            txtRecepcionist.Enabled = false;
+            txtRecepcionist.Location = new Point(118, 147);
+            txtRecepcionist.Name = "txtRecepcionist";
+            txtRecepcionist.Size = new Size(181, 23);
+            txtRecepcionist.TabIndex = 28;
+            // 
             // EnrollmentOperations_Update
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(650, 278);
+            Controls.Add(txtRecepcionist);
             Controls.Add(lblEnrollmentID);
             Controls.Add(label6);
             Controls.Add(lblStudentName);
@@ -189,7 +190,6 @@
             Controls.Add(btnUpdate);
             Controls.Add(lstPayment);
             Controls.Add(label5);
-            Controls.Add(cboRecepcionist);
             Controls.Add(dateTimePicker1);
             Controls.Add(cboGrade);
             Controls.Add(txtStudentID);
@@ -211,7 +211,6 @@
         private Button btnUpdate;
         private ListBox lstPayment;
         private Label label5;
-        private ComboBox cboRecepcionist;
         private DateTimePicker dateTimePicker1;
         private ComboBox cboGrade;
         private TextBox txtStudentID;
@@ -221,5 +220,6 @@
         private Label label1;
         private Label label6;
         private Label lblEnrollmentID;
+        private TextBox txtRecepcionist;
     }
 }

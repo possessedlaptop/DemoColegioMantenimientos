@@ -48,6 +48,7 @@ namespace Colegio_GUI.Forms.Operations.Enrollments
                 cboGrade.ValueMember = "GradeID";
                 cboGrade.DisplayMember = "GradeName";
 
+                /*
                 // Fill Recepcionist
                 dt = objRecepcionistBL.ListRecepcionists();
                 dr = dt.NewRow();
@@ -58,7 +59,10 @@ namespace Colegio_GUI.Forms.Operations.Enrollments
                 cboRecepcionist.DataSource = dt;
                 cboRecepcionist.ValueMember = "RecepcionistID";
                 cboRecepcionist.DisplayMember = "NombreCompleto";
+                */
 
+                // we populate the recepcionist combo box with the selected recepcionist according to credentials
+                txtRecepcionist.Text = clsCredentials.User;
             }
             catch (Exception ex)
             {
@@ -85,9 +89,22 @@ namespace Colegio_GUI.Forms.Operations.Enrollments
             validateFieldsComplete();
 
             objEnrollmentBE.StudentID = Convert.ToInt16(txtStudentID.Text.Trim());
-            objEnrollmentBE.GradeID = Convert.ToInt16(cboRecepcionist.SelectedValue);
+            objEnrollmentBE.GradeID = Convert.ToInt16(cboGrade.SelectedValue);
             objEnrollmentBE.PaymentStatus = Convert.ToInt16(lstPayment.SelectedValue);
-            objEnrollmentBE.RecepcionistId = Convert.ToInt16(cboRecepcionist.SelectedValue);
+            // objEnrollmentBE.RecepcionistId = Convert.ToInt16(cboRecepcionist.SelectedValue);
+            // TODO: Implement a stored procedure that searches for the recepcionist ID based on the user and returns a recepcionist ID
+            switch (clsCredentials.User)
+            {
+                case "cgutierrez":
+                    objEnrollmentBE.RecepcionistId = 1;
+                    break;
+                case "rcastro":
+                    objEnrollmentBE.RecepcionistId = 2;
+                    break;
+                default:
+                    objEnrollmentBE.RecepcionistId = 1;
+                    break;
+            }
             objEnrollmentBE.DateCreated = dateTimePicker1.Value;
             objEnrollmentBE.RegisteringUser = clsCredentials.User;
 
