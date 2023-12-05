@@ -26,7 +26,7 @@ namespace Colegio_GUI.Forms.Operations.Students
         {
             dtv = new DataView(objStudentBL.ListStudents());
             // this is the query to find all names that contain what's on the search bar, not sure if we should start by name or last name yet
-            dtv.RowFilter = "FirstName like '%" + strFilter + "%'";
+            dtv.RowFilter = "FirstLastName like '%" + strFilter + "%'";
             // we pass on the result view to our datagridview
             dtgData.DataSource = dtv;
             // and for the entries
@@ -104,7 +104,7 @@ namespace Colegio_GUI.Forms.Operations.Students
 
         private void dtgData_DoubleClick(object sender, EventArgs e)
         {
-            if(dtgData.SelectedRows.Count > 0)
+            if (dtgData.SelectedRows.Count > 0)
             {
                 btnUpdate.PerformClick();
             }

@@ -238,10 +238,12 @@ namespace Colegio_GUI.Forms.Operations.Teachers
                 MessageBox.Show("State must be selected");
             }
             // Finally, we check the photo has been selected
+            /* 
             if (pcbStudentPic.Image == null)
             {
                 MessageBox.Show("Photo must be selected");
             }
+            */
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -269,13 +271,15 @@ namespace Colegio_GUI.Forms.Operations.Teachers
             objStaffBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
             objStaffBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
 
-            if (!string.IsNullOrEmpty(dlg.FileName))
+            if (string.IsNullOrEmpty(dlg.FileName))
             {
-                objStaffBE.StaffPhoto = File.ReadAllBytes(dlg.FileName);
+                // if no photo is selected, we use the photo in the ColegioGUI, Resources folder, defaultPhoto.png.
+                // We also modified in file properties to be Content and copied on build
+                objStaffBE.StaffPhoto = File.ReadAllBytes(Path.Combine(Application.StartupPath, "Resources", "defaultPhoto.png"));
             }
             else
             {
-                objStaffBE.StaffPhoto = null;
+                objStaffBE.StaffPhoto = File.ReadAllBytes(dlg.FileName);
             }
 
             objStaffBE.LastModifiedUser = clsCredentials.User;

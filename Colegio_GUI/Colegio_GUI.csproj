@@ -9,6 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\defaultPhoto.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\defaultPhoto.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Colegio_BE\Colegio_BE.csproj" />
     <ProjectReference Include="..\Colegio_BL\Colegio_BL.csproj" />
   </ItemGroup>

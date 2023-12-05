@@ -1,5 +1,6 @@
 ﻿using Colegio_BE;
 using Colegio_BL;
+using Colegio_GUI.Properties;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -250,7 +251,7 @@ namespace Colegio_GUI.Forms.Operations.Students
             // Finally, we check the photo has been selected
             if (pcbStudentPic.Image == null)
             {
-                MessageBox.Show("Photo must be selected");
+               // MessageBox.Show("Photo must be selected");
             }
         }
 
@@ -285,13 +286,15 @@ namespace Colegio_GUI.Forms.Operations.Students
             objStudentBE.CurrentState = (Int16)lstCurrentState.SelectedIndex;
             objStudentBE.ID_Ubigeo = cboDepartment.SelectedValue.ToString() + cboProvince.SelectedValue.ToString() + cboDistrict.SelectedValue.ToString();
 
-            if (!string.IsNullOrEmpty(dlg.FileName))
+            if (string.IsNullOrEmpty(dlg.FileName))
             {
-                objStudentBE.StudentPhoto = File.ReadAllBytes(dlg.FileName);
+                // if no photo is selected, we use the photo in the ColegioGUI, Resources folder, defaultPhoto.png.
+                // We also modified in file properties to be Content and copied on build
+                objStudentBE.StudentPhoto = File.ReadAllBytes(Path.Combine(Application.StartupPath, "Resources", "defaultPhoto.png"));
             }
             else
             {
-                objStudentBE.StudentPhoto = null;
+                objStudentBE.StudentPhoto = File.ReadAllBytes(dlg.FileName);
             }
 
             objStudentBE.LastModifiedUser = clsCredentials.User;

@@ -27,6 +27,7 @@ namespace Colegio_GUI.Forms.Operations.Teachers
         {
             dtv = new DataView(objTeacherBL.ListTeachers());
             // this is the query to find all names that contain what's on the search bar, not sure if we should start by name or last name yet
+            // EDIT : We were requested to start by last name, but considering the colummn NombreCompleto is composed there is no need to change much
             dtv.RowFilter = "NombreCompleto like '%" + strFilter + "%'";
             // we pass on the result view to our datagridview
             dtgData.DataSource = dtv;
