@@ -444,7 +444,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "TeacherOperations_Update";
-            Text = "TeacherOperations_Update";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Update Teacher";
             Load += TeacherOperations_Update_Load;
             ((System.ComponentModel.ISupportInitialize)pcbStudentPic).EndInit();
             ResumeLayout(false);

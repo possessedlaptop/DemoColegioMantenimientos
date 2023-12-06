@@ -251,7 +251,7 @@ namespace Colegio_GUI.Forms.Operations.Students
             // Finally, we check the photo has been selected
             if (pcbStudentPic.Image == null)
             {
-               // MessageBox.Show("Photo must be selected");
+                // MessageBox.Show("Photo must be selected");
             }
         }
 

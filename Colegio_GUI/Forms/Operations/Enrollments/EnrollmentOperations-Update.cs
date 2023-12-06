@@ -70,7 +70,7 @@ namespace Colegio_GUI.Forms.Operations.Enrollments
                 lstPayment.SelectedIndex = objEnrollmentBE.PaymentStatus;
                 // cboRecepcionist.SelectedValue = objEnrollmentBE.RecepcionistId;
                 dateTimePicker1.Value = objEnrollmentBE.DateCreated;
-                
+
 
                 txtRecepcionist.Text = clsCredentials.User;
             }

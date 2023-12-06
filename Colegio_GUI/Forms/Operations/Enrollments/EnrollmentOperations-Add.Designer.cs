@@ -177,7 +177,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "EnrollmentOperations_Add";
-            Text = "EnrollmentOperations_Add";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Add New Enrollment";
             Load += EnrollmentOperations_Add_Load;
             ResumeLayout(false);
             PerformLayout();

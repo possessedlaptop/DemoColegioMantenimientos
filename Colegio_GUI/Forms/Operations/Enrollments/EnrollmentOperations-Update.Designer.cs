@@ -198,7 +198,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "EnrollmentOperations_Update";
-            Text = "EnrollmentOperations_Update";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Update Enrollments";
             Load += EnrollmentOperations_Update_Load;
             ResumeLayout(false);
             PerformLayout();

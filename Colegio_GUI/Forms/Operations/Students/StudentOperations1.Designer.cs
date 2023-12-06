@@ -146,7 +146,8 @@
             Controls.Add(txtSearchBar);
             Controls.Add(label1);
             Name = "StudentOperations1";
-            Text = "StudentOperations1";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Student Operations";
             Load += StudentOperations1_Load;
             ((System.ComponentModel.ISupportInitialize)dtgData).EndInit();
             ResumeLayout(false);

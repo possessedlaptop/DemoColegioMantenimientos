@@ -432,7 +432,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "StudentOperations1_Update";
-            Text = "StudentOperations1_Update";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Update Student";
             Load += StudentOperations1_Update_Load;
             ((System.ComponentModel.ISupportInitialize)pcbStudentPic).EndInit();
             gboGender.ResumeLayout(false);

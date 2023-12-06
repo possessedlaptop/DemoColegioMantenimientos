@@ -148,7 +148,8 @@
             Controls.Add(txtSearchBar);
             Controls.Add(label1);
             Name = "EnrollmentOperations";
-            Text = "EnrollmentOperations";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Enrollment Operations";
             Load += EnrollmentOperations_Load;
             ((System.ComponentModel.ISupportInitialize)dtgData).EndInit();
             ResumeLayout(false);

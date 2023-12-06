@@ -411,7 +411,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "StudentsOperations1_Add";
-            Text = "StudentsOperations1_Add";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Add New Student";
             Load += StudentsOperations1_Add_Load;
             gboGender.ResumeLayout(false);
             gboGender.PerformLayout();

@@ -423,7 +423,8 @@
             Controls.Add(label2);
             Controls.Add(label1);
             Name = "TeacherOperations_Add";
-            Text = "TeacherOperations_Add";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Add New Teacher";
             Load += TeacherOperations_Add_Load;
             ((System.ComponentModel.ISupportInitialize)pcbStudentPic).EndInit();
             ResumeLayout(false);
