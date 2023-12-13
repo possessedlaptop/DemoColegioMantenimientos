@@ -63,6 +63,7 @@
             dtgData.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dtgData.Location = new Point(12, 51);
             dtgData.Name = "dtgData";
+            dtgData.ReadOnly = true;
             dtgData.RowTemplate.Height = 25;
             dtgData.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dtgData.Size = new Size(1188, 331);

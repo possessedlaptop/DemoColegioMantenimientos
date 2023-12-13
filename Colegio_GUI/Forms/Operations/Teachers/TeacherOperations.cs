@@ -28,7 +28,8 @@ namespace Colegio_GUI.Forms.Operations.Teachers
             dtv = new DataView(objTeacherBL.ListTeachers());
             // this is the query to find all names that contain what's on the search bar, not sure if we should start by name or last name yet
             // EDIT : We were requested to start by last name, but considering the colummn NombreCompleto is composed there is no need to change much
-            dtv.RowFilter = "NombreCompleto like '%" + strFilter + "%'";
+            // EDIT 2: Added corresponding fields to TEachers View
+            dtv.RowFilter = "FirstLastName like '%" + strFilter + "%'";
             // we pass on the result view to our datagridview
             dtgData.DataSource = dtv;
             // and for the entries
@@ -38,7 +39,7 @@ namespace Colegio_GUI.Forms.Operations.Teachers
             imgCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
 
             // We want this column to be set to autosize horizontally
-            dtgData.Columns["NombreCompleto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            // dtgData.Columns["NombreCompleto"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
         }
 
         private void TeacherOperations_Load(object sender, EventArgs e)
